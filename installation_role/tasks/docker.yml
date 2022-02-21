@@ -1,0 +1,20 @@
+---
+- name: Install docker, docker-compose modules for Ansible
+  shell: |
+    pip install docker docker-compose --ignore-installed requests
+
+- name: Generate docker-compose.yml
+  template:
+    src : "../templates/docker-compose.j2"
+    dest: "{{ dest_folder }}/docker-compose.yaml"
+
+- name: Tear down existing containers
+  docker_compose:
+    project_src: "{{ dest_folder }}"
+    state: absent
+
+- name: Run docker-compose
+  docker_compose:
+    project_src: "{{ dest_folder }}"
+    build: yes
+...

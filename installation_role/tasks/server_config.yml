@@ -1,0 +1,23 @@
+---
+
+- block:
+  - name: update packages
+    shell: apt update
+    ignore_errors: yes
+
+  - name: Install pip for Debian
+    apt:
+      name: pip
+      state: latest
+  when: ansible_os_family == 'Debian'
+
+- block:
+  - name: update packages
+    shell: yum update -y
+    ignore_errors: yes
+
+  - name: Install pip for RHEL
+    yum:
+      name: python-pip
+  when: ansible_os_family == 'RedHat'
+

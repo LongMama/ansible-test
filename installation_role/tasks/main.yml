@@ -1,0 +1,11 @@
+---
+- import_tasks: server_config.yml
+
+- import_tasks: install_packages.yml
+
+- import_tasks: docker.yml
+  when: docker
+
+- import_tasks: manual_install.yml
+  when: manual
+...

@@ -1,0 +1,5 @@
+---
+dest_folder : .
+docker      : false
+manual      : true
+...

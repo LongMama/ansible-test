@@ -1,0 +1,28 @@
+---
+
+- block:
+  - name: Install htop, docker for Debian
+    apt: name={{ item }} state=latest
+    loop:
+      - htop
+      - docker
+  when: ansible_os_family == 'Debian'
+
+- block:
+  - name: Install htop, docker for RedHat
+    yum: name={{ item }} state=latest
+    loop:
+      - htop
+      - docker
+  when: ansible_os_family == 'RedHat'
+
+- name: Start and enable the docker service
+  service:
+    name         : docker.service
+    state        : started
+    enabled      : yes
+
+- name: Install docker-compose
+  shell: |
+    curl -sL "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
