@@ -1,5 +1,5 @@
 ---
 dest_folder : .
-docker      : false
-manual      : true
+docker      : true
+manual      : false
 ...
